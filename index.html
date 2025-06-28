@@ -1,0 +1,2220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Railway Group D Mock Test</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --bg-color: #f9f9f9;
+        }
+
+        .dark-mode {
+            --primary-color: #34495e;
+            --secondary-color: #2980b9;
+            --success-color: #2ecc71;
+            --warning-color: #e67e22;
+            --danger-color: #c0392b;
+            --light-color: #bdc3c7;
+            --dark-color: #ecf0f1;
+            --text-color: #ecf0f1;
+            --bg-color: #2c3e50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Welcome Screen */
+        .welcome-screen {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .welcome-screen h1 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .welcome-screen p {
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-start {
+            background-color: var(--success-color);
+            margin-top: 20px;
+        }
+
+        .btn-start:hover {
+            background-color: #2ecc71;
+        }
+
+        /* Test Interface */
+        .test-container {
+            display: none;
+        }
+
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .test-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .timer-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timer {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 4px;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .timer-warning {
+            background-color: var(--warning-color);
+        }
+
+        .timer-danger {
+            background-color: var(--danger-color);
+        }
+
+        .btn-timer-control {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .test-body {
+            display: flex;
+            gap: 20px;
+        }
+
+        .question-panel {
+            flex: 3;
+            background-color: var(--bg-color);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-nav {
+            flex: 1;
+            background-color: var(--bg-color);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+
+        .question-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .options-container {
+            margin-bottom: 20px;
+        }
+
+        .option {
+            display: block;
+            margin-bottom: 10px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .option.selected {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        .option.correct {
+            background-color: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
+        }
+
+        .option.incorrect {
+            background-color: var(--danger-color);
+            color: white;
+            border-color: var(--danger-color);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .btn-prev, .btn-next, .btn-submit {
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-prev {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            border: 1px solid #ddd;
+        }
+
+        .btn-next {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+        }
+
+        .btn-submit {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+        }
+
+        .question-palette {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .palette-item {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            background-color: var(--light-color);
+            color: var(--text-color);
+        }
+
+        .palette-item.attempted {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .palette-item.marked {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .palette-item.current {
+            border: 3px solid var(--secondary-color);
+        }
+
+        .section-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .section-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+
+        .section-tab.active {
+            border-bottom: 3px solid var(--secondary-color);
+            font-weight: bold;
+        }
+
+        /* Result Screen */
+        .result-screen {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .result-screen h1 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .score-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: var(--bg-color);
+        }
+
+        .score-value {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin: 20px 0;
+        }
+
+        .score-details {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+        }
+
+        .score-detail {
+            text-align: center;
+        }
+
+        .score-detail-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .score-detail-label {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .section-analysis {
+            margin-top: 30px;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-item {
+            margin-bottom: 20px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .section-name {
+            font-weight: bold;
+        }
+
+        .section-score {
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--secondary-color);
+            border-radius: 5px;
+        }
+
+        .btn-review, .btn-home {
+            margin: 10px;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-review {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+        }
+
+        .btn-home {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            border: 1px solid #ddd;
+        }
+
+        /* Review Screen */
+        .review-screen {
+            display: none;
+            padding: 20px;
+        }
+
+        .review-question {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: var(--bg-color);
+        }
+
+        .review-question.correct {
+            border-left: 5px solid var(--success-color);
+        }
+
+        .review-question.incorrect {
+            border-left: 5px solid var(--danger-color);
+        }
+
+        .review-question.unattempted {
+            border-left: 5px solid var(--warning-color);
+        }
+
+        .review-question-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .question-status {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .status-correct {
+            background-color: var(--success-color);
+        }
+
+        .status-incorrect {
+            background-color: var(--danger-color);
+        }
+
+        .status-unattempted {
+            background-color: var(--warning-color);
+        }
+
+        .explanation {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid var(--secondary-color);
+            background-color: var(--light-color);
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        /* Full Screen Mode */
+        .fullscreen-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        /* Language Toggle */
+        .language-toggle {
+            position: fixed;
+            bottom: 140px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .test-body {
+                flex-direction: column;
+            }
+
+            .question-panel, .question-nav {
+                width: 100%;
+            }
+
+            .question-nav {
+                order: -1;
+                margin-bottom: 20px;
+            }
+
+            .question-palette {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .question-palette {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .section-tabs {
+                flex-wrap: wrap;
+            }
+
+            .section-tab {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+
+        /* Leaderboard */
+        .leaderboard {
+            margin-top: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .leaderboard h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .leaderboard-table th, .leaderboard-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .leaderboard-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .leaderboard-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .leaderboard-table tr:hover {
+            background-color: #e9e9e9;
+        }
+
+        .rank-1 {
+            background-color: gold !important;
+            font-weight: bold;
+        }
+
+        .rank-2 {
+            background-color: silver !important;
+        }
+
+        .rank-3 {
+            background-color: #cd7f32 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div class="container welcome-screen" id="welcomeScreen">
+        <h1>Railway Group D Mock Test</h1>
+        <p>Practice with our comprehensive mock test series to ace your Railway Group D exam</p>
+        
+        <div class="form-group">
+            <label for="studentName">Full Name</label>
+            <input type="text" id="studentName" placeholder="Enter your full name">
+        </div>
+        
+        <div class="form-group">
+            <label for="studentEmail">Email (optional)</label>
+            <input type="email" id="studentEmail" placeholder="Enter your email">
+        </div>
+        
+        <div class="form-group">
+            <label for="testType">Select Test Type</label>
+            <select id="testType">
+                <option value="full">Full Length Test (50 Questions)</option>
+                <option value="sectional">Sectional Test (25 Questions)</option>
+                <option value="previous">Previous Year Questions</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="languagePreference">Language Preference</label>
+            <select id="languagePreference">
+                <option value="en">English</option>
+                <option value="hi">Hindi</option>
+                <option value="bilingual">Bilingual (English + Hindi)</option>
+            </select>
+        </div>
+        
+        <button class="btn btn-start" id="startTestBtn">Start Test</button>
+    </div>
+
+    <!-- Test Interface -->
+    <div class="container test-container" id="testContainer">
+        <div class="test-header">
+            <div class="test-title">Railway Group D Mock Test</div>
+            <div class="timer-container">
+                <div class="timer" id="testTimer">00:30:00</div>
+                <button class="btn-timer-control" id="timerControlBtn">Pause</button>
+            </div>
+        </div>
+
+        <div class="section-tabs" id="sectionTabs">
+            <!-- Section tabs will be added dynamically -->
+        </div>
+
+        <div class="test-body">
+            <div class="question-panel">
+                <div class="question-text" id="questionText">Loading question...</div>
+                
+                <div class="options-container" id="optionsContainer">
+                    <!-- Options will be added dynamically -->
+                </div>
+                
+                <div class="navigation-buttons">
+                    <button class="btn-prev" id="prevQuestionBtn">Previous</button>
+                    <button class="btn-next" id="nextQuestionBtn">Next</button>
+                    <button class="btn-submit hidden" id="submitTestBtn">Submit Test</button>
+                </div>
+            </div>
+            
+            <div class="question-nav">
+                <h3>Question Palette</h3>
+                <div class="question-palette" id="questionPalette">
+                    <!-- Question numbers will be added dynamically -->
+                </div>
+                
+                <div class="legend mt-20">
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <div style="width: 20px; height: 20px; background-color: var(--success-color); margin-right: 10px; border-radius: 4px;"></div>
+                        <span>Attempted</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <div style="width: 20px; height: 20px; background-color: var(--warning-color); margin-right: 10px; border-radius: 4px;"></div>
+                        <span>Marked for Review</span>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 20px; height: 20px; background-color: var(--light-color); margin-right: 10px; border-radius: 4px;"></div>
+                        <span>Not Attempted</span>
+                    </div>
+                </div>
+                
+                <button class="btn btn-submit mt-20" id="markForReviewBtn">Mark for Review</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="container result-screen" id="resultScreen">
+        <h1>Test Results</h1>
+        
+        <div class="score-card">
+            <h2 id="resultUserName">Congratulations, User!</h2>
+            <div class="score-value" id="totalScore">0/50</div>
+            <p id="resultMessage">You have completed the test successfully.</p>
+            
+            <div class="score-details">
+                <div class="score-detail">
+                    <div class="score-detail-value" id="correctAnswers">0</div>
+                    <div class="score-detail-label">Correct</div>
+                </div>
+                <div class="score-detail">
+                    <div class="score-detail-value" id="wrongAnswers">0</div>
+                    <div class="score-detail-label">Wrong</div>
+                </div>
+                <div class="score-detail">
+                    <div class="score-detail-value" id="unattempted">0</div>
+                    <div class="score-detail-label">Unattempted</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-analysis">
+            <h3>Section-wise Analysis</h3>
+            <div id="sectionAnalysis">
+                <!-- Section analysis will be added dynamically -->
+            </div>
+        </div>
+
+        <div class="leaderboard">
+            <h2>Top Performers</h2>
+            <table class="leaderboard-table" id="leaderboardTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Leaderboard data will be added dynamically -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="mt-20">
+            <button class="btn-review" id="reviewTestBtn">Review Test</button>
+            <button class="btn-home" id="homeBtn">Back to Home</button>
+        </div>
+    </div>
+
+    <!-- Review Screen -->
+    <div class="container review-screen" id="reviewScreen">
+        <h1 class="text-center">Test Review</h1>
+        <div id="reviewQuestionsContainer">
+            <!-- Review questions will be added dynamically -->
+        </div>
+        
+        <div class="text-center mt-20">
+            <button class="btn-home" id="backToResultsBtn">Back to Results</button>
+        </div>
+    </div>
+
+    <!-- Full Screen Button -->
+    <div class="fullscreen-btn" id="fullscreenBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+        </svg>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle" id="darkModeToggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+    </div>
+
+    <!-- Language Toggle -->
+    <div class="language-toggle" id="languageToggle">EN</div>
+
+    <script>
+        // Question Data - All 50 questions provided
+        const questions = [
+            {
+                "section": "General Science",
+                "question": "मानव शरीर में भोजन का अधिकतम पाचन (digestion) किस भाग में होता है?",
+                "options": ["छोटी आँत (Small Intestine)", "बड़ी आँत (Large Intestine)", "आमाशय (Stomach)", "मुख (Mouth)"],
+                "correctAnswer": 0,
+                "explanation": "छोटी आँत भोजन के पाचन और पोषक तत्वों के अवशोषण का मुख्य स्थल है। यहाँ कार्बोहाइड्रेट, प्रोटीन और वसा (फैट्स) का पूर्ण पाचन होता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Where does maximum digestion of food occur in the human body?",
+                    "options": ["Small Intestine", "Large Intestine", "Stomach", "Mouth"],
+                    "explanation": "The small intestine is the main site for digestion and absorption of nutrients. Complete digestion of carbohydrates, proteins and fats occurs here."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मानव शरीर की सबसे बड़ी पाचन ग्रंथि (digestive gland) कौन सी है?",
+                "options": ["यकृत (Liver)", "अग्नाशय (Pancreas)", "लार ग्रंथि (Salivary Gland)", "थायरॉयड ग्रंथि (Thyroid Gland)"],
+                "correctAnswer": 0,
+                "explanation": "यकृत मानव शरीर की सबसे बड़ी ग्रंथि है और पाचन में महत्वपूर्ण भूमिका निभाता है, खासकर पित्त (bile) के उत्पादन द्वारा।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which is the largest digestive gland in the human body?",
+                    "options": ["Liver", "Pancreas", "Salivary Gland", "Thyroid Gland"],
+                    "explanation": "The liver is the largest gland in the human body and plays an important role in digestion, especially through the production of bile."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मानव शरीर में भोजन का अवशोषण (absorption) मुख्य रूप से कहाँ होता है?",
+                "options": ["छोटी आँत (Small Intestine)", "बड़ी आँत (Large Intestine)", "आमाशय (Stomach)", "ग्रासनली (Esophagus)"],
+                "correctAnswer": 0,
+                "explanation": "छोटी आँत में विली (villi) और माइक्रोविली (microvilli) होते हैं जो पोषक तत्वों के अवशोषण के लिए सतह क्षेत्र बढ़ाते हैं।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Where does absorption of food mainly occur in the human body?",
+                    "options": ["Small Intestine", "Large Intestine", "Stomach", "Esophagus"],
+                    "explanation": "The small intestine has villi and microvilli that increase the surface area for absorption of nutrients."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "दाँतों का इनेमल (enamel) किसका बना होता है?",
+                "options": ["कैल्शियम फॉस्फेट (Calcium Phosphate)", "कैल्शियम कार्बोनेट (Calcium Carbonate)", "कैल्शियम सल्फेट (Calcium Sulfate)", "कैल्शियम क्लोराइड (Calcium Chloride)"],
+                "correctAnswer": 0,
+                "explanation": "दाँतों का इनेमल कैल्शियम फॉस्फेट का बना होता है, जो इसे शरीर का सबसे कठोर पदार्थ बनाता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "What is tooth enamel made of?",
+                    "options": ["Calcium Phosphate", "Calcium Carbonate", "Calcium Sulfate", "Calcium Chloride"],
+                    "explanation": "Tooth enamel is made of calcium phosphate, which makes it the hardest substance in the body."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "कौन सा एंजाइम वसा (fats) को पचाने में मदद करता है?",
+                "options": ["लाइपेस (Lipase)", "अमायलेस (Amylase)", "पेप्सिन (Pepsin)", "ट्रिप्सिन (Trypsin)"],
+                "correctAnswer": 0,
+                "explanation": "लाइपेस एंजाइम वसा (लिपिड) को फैटी एसिड और ग्लिसरॉल में तोड़ता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which enzyme helps in digesting fats?",
+                    "options": ["Lipase", "Amylase", "Pepsin", "Trypsin"],
+                    "explanation": "Lipase enzyme breaks down fats (lipids) into fatty acids and glycerol."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मानव शरीर में कुल कितनी हड्डियाँ होती हैं?",
+                "options": ["206", "300", "212", "198"],
+                "correctAnswer": 0,
+                "explanation": "एक वयस्क मानव शरीर में कुल 206 हड्डियाँ होती हैं।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "How many bones are there in the human body?",
+                    "options": ["206", "300", "212", "198"],
+                    "explanation": "An adult human body has a total of 206 bones."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मानव शरीर की सबसे लंबी हड्डी (bone) कौन सी है?",
+                "options": ["फीमर (Femur)", "टिबिया (Tibia)", "ह्यूमरस (Humerus)", "फाइबुला (Fibula)"],
+                "correctAnswer": 0,
+                "explanation": "फीमर, जो जांघ में होती है, मानव शरीर की सबसे लंबी और सबसे मजबूत हड्डी है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which is the longest bone in the human body?",
+                    "options": ["Femur", "Tibia", "Humerus", "Fibula"],
+                    "explanation": "The femur, which is in the thigh, is the longest and strongest bone in the human body."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "कौन सी हड्डी कान का हिस्सा नहीं है?",
+                "options": ["पटेला (Patella)", "मेलियस (Malleus)", "इनकस (Incus)", "स्टेपीज़ (Stapes)"],
+                "correctAnswer": 0,
+                "explanation": "पटेला घुटने की कटोरी (kneecap) है और कान का हिस्सा नहीं है। कान में मेलियस, इनकस और स्टेपीज़ हड्डियाँ होती हैं।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which bone is not part of the ear?",
+                    "options": ["Patella", "Malleus", "Incus", "Stapes"],
+                    "explanation": "The patella is the kneecap and is not part of the ear. The ear contains the malleus, incus and stapes bones."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मानव शरीर में पसलियों (ribs) के कितने जोड़े होते हैं?",
+                "options": ["12", "10", "11", "13"],
+                "correctAnswer": 0,
+                "explanation": "मानव शरीर में कुल 12 जोड़े पसलियाँ होती हैं, जो छाती (chest) की बनावट बनाती हैं और आंतरिक अंगों की रक्षा करती हैं।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "How many pairs of ribs are there in the human body?",
+                    "options": ["12", "10", "11", "13"],
+                    "explanation": "There are a total of 12 pairs of ribs in the human body, which form the structure of the chest and protect internal organs."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "बच्चों में कितनी हड्डियाँ होती हैं?",
+                "options": ["लगभग 300", "206", "250", "180"],
+                "correctAnswer": 0,
+                "explanation": "नवजात शिशुओं में लगभग 300 हड्डियाँ होती हैं, जिनमें से कई बाद में एक साथ जुड़कर वयस्क हड्डियों का निर्माण करती हैं।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "How many bones do children have?",
+                    "options": ["About 300", "206", "250", "180"],
+                    "explanation": "Newborn babies have about 300 bones, many of which later fuse together to form adult bones."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मानव शरीर में रक्त (blood) को छानने (filter) का मुख्य कार्य कौन सा अंग करता है?",
+                "options": ["वृक्क (Kidney)", "यकृत (Liver)", "फेफड़े (Lungs)", "प्लीहा (Spleen)"],
+                "correctAnswer": 0,
+                "explanation": "वृक्क रक्त से अपशिष्ट पदार्थों (waste products) और अतिरिक्त पानी को छान कर मूत्र बनाते हैं, जो शरीर से बाहर निकल जाता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which organ is mainly responsible for filtering blood in the human body?",
+                    "options": ["Kidney", "Liver", "Lungs", "Spleen"],
+                    "explanation": "The kidneys filter waste products and excess water from the blood to form urine, which is excreted from the body."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मूत्र (urine) का पीला रंग किस पिगमेंट के कारण होता है?",
+                "options": ["यूरोक्रोम (Urochrome)", "बिलीरुबिन (Bilirubin)", "मेलेनिन (Melanin)", "हीमोग्लोबिन (Haemoglobin)"],
+                "correctAnswer": 0,
+                "explanation": "मूत्र का पीला रंग यूरोक्रोम (urobilin) नामक पिगमेंट के कारण होता है, जो हीमोग्लोबिन के विघटन (breakdown) से बनता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "What pigment causes the yellow color of urine?",
+                    "options": ["Urochrome", "Bilirubin", "Melanin", "Haemoglobin"],
+                    "explanation": "The yellow color of urine is caused by a pigment called urochrome, which is formed from the breakdown of hemoglobin."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "किडनी की कार्यात्मक इकाई (functional unit) क्या है?",
+                "options": ["नेफ्रॉन (Nephron)", "न्यूरॉन (Neuron)", "एल्वियोली (Alveoli)", "हेपेटोसाइट (Hepatocyte)"],
+                "correctAnswer": 0,
+                "explanation": "नेफ्रॉन वृक्क (किडनी) की मूलभूत संरचनात्मक और कार्यात्मक इकाई है जो रक्त को फिल्टर करती है और मूत्र बनाती है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "What is the functional unit of the kidney?",
+                    "options": ["Nephron", "Neuron", "Alveoli", "Hepatocyte"],
+                    "explanation": "The nephron is the basic structural and functional unit of the kidney that filters blood and forms urine."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मानव शरीर से यूरिया (Urea) को कौन सा अंग बाहर निकालता है?",
+                "options": ["वृक्क (Kidney)", "यकृत (Liver)", "त्वचा (Skin)", "बड़ी आँत (Large Intestine)"],
+                "correctAnswer": 0,
+                "explanation": "वृक्क रक्त से यूरिया और अन्य अपशिष्ट पदार्थों को छानकर मूत्र के रूप में शरीर से बाहर निकालते हैं।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which organ removes urea from the human body?",
+                    "options": ["Kidney", "Liver", "Skin", "Large Intestine"],
+                    "explanation": "The kidneys filter urea and other waste products from the blood and excrete them from the body as urine."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "पसीना (Sweat) किस ग्रंथि द्वारा स्रावित होता है?",
+                "options": ["श्वेत ग्रंथि (Sweat Gland)", "सिबेशियस ग्रंथि (Sebaceous Gland)", "लार ग्रंथि (Salivary Gland)", "अश्रु ग्रंथि (Lacrimal Gland)"],
+                "correctAnswer": 0,
+                "explanation": "श्वेत ग्रंथियां (पसीना ग्रंथियां) त्वचा में मौजूद होती हैं और पसीना उत्पन्न करती हैं, जो शरीर के तापमान को नियंत्रित करने में मदद करता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which gland secretes sweat?",
+                    "options": ["Sweat Gland", "Sebaceous Gland", "Salivary Gland", "Lacrimal Gland"],
+                    "explanation": "Sweat glands are present in the skin and produce sweat, which helps regulate body temperature."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मानव मस्तिष्क का सबसे बड़ा हिस्सा कौन सा है?",
+                "options": ["प्रमस्तिष्क (Cerebrum)", "अनुमस्तिष्क (Cerebellum)", "मेडुला ऑब्लांगटा (Medulla Oblongata)", "पॉन्स (Pons)"],
+                "correctAnswer": 0,
+                "explanation": "प्रमस्तिष्क मानव मस्तिष्क का सबसे बड़ा और सबसे आगे का हिस्सा है, जो सोचने, याद रखने, भावनाओं और स्वैच्छिक (voluntary) कार्यों के लिए जिम्मेदार है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which is the largest part of the human brain?",
+                    "options": ["Cerebrum", "Cerebellum", "Medulla Oblongata", "Pons"],
+                    "explanation": "The cerebrum is the largest and most anterior part of the human brain, responsible for thinking, memory, emotions and voluntary actions."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "एक न्यूरॉन (तंत्रिका कोशिका) के किस भाग से सिग्नल दूसरे न्यूरॉन तक पहुंचाया जाता है?",
+                "options": ["एक्सॉन टर्मिनल (Axon Terminal)", "डेंड्राइट (Dendrite)", "सेल बॉडी (Cell Body / Soma)", "माइलिन शीथ (Myelin Sheath)"],
+                "correctAnswer": 0,
+                "explanation": "एक्सॉन टर्मिनल (या सिनैप्टिक नॉब) वह जगह है जहाँ से तंत्रिका आवेग (nerve impulse) दूसरे न्यूरॉन या इफेक्टर सेल तक संचारित होता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "From which part of a neuron is the signal transmitted to another neuron?",
+                    "options": ["Axon Terminal", "Dendrite", "Cell Body / Soma", "Myelin Sheath"],
+                    "explanation": "The axon terminal (or synaptic knob) is where the nerve impulse is transmitted to another neuron or effector cell."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मानव मस्तिष्क का कौन सा हिस्सा शरीर के संतुलन (balance) और गतिविधियों के समन्वय (coordination) के लिए जिम्मेदार है?",
+                "options": ["अनुमस्तिष्क (Cerebellum)", "प्रमस्तिष्क (Cerebrum)", "मेडुला ऑब्लांगटा (Medulla Oblongata)", "थैलेमस (Thalamus)"],
+                "correctAnswer": 0,
+                "explanation": "अनुमस्तिष्क शरीर के संतुलन, समन्वय और स्वैच्छिक (voluntary) मांसपेशियों की हरकतों को नियंत्रित करता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which part of the human brain is responsible for balance and coordination of movements?",
+                    "options": ["Cerebellum", "Cerebrum", "Medulla Oblongata", "Thalamus"],
+                    "explanation": "The cerebellum controls balance, coordination and voluntary muscle movements."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मानव तंत्रिका तंत्र (Nervous System) की मूलभूत इकाई क्या है?",
+                "options": ["न्यूरॉन (Neuron)", "नेफ्रॉन (Nephron)", "एल्वेओलस (Alveolus)", "ओस्टियोसाइट (Osteocyte)"],
+                "correctAnswer": 0,
+                "explanation": "न्यूरॉन तंत्रिका तंत्र की संरचनात्मक और कार्यात्मक इकाई है, जो विद्युत और रासायनिक संकेतों के माध्यम से जानकारी संचारित करती है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "What is the basic unit of the nervous system?",
+                    "options": ["Neuron", "Nephron", "Alveolus", "Osteocyte"],
+                    "explanation": "The neuron is the structural and functional unit of the nervous system that transmits information through electrical and chemical signals."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "कौन सी तंत्रिकाएं अनैच्छिक (involuntary) कार्यों, जैसे हृदय गति और पाचन को नियंत्रित करती हैं?",
+                "options": ["स्वायत्त तंत्रिका तंत्र (Autonomic Nervous System)", "कायिक तंत्रिका तंत्र (Somatic Nervous System)", "केंद्रीय तंत्रिका तंत्र (Central Nervous System)", "परिधीय तंत्रिका तंत्र (Peripheral Nervous System)"],
+                "correctAnswer": 0,
+                "explanation": "स्वायत्त तंत्रिका तंत्र हृदय गति, पाचन, श्वसन और रक्तचाप जैसे अनैच्छिक शारीरिक कार्यों को नियंत्रित करता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which nerves control involuntary actions like heart rate and digestion?",
+                    "options": ["Autonomic Nervous System", "Somatic Nervous System", "Central Nervous System", "Peripheral Nervous System"],
+                    "explanation": "The autonomic nervous system controls involuntary bodily functions such as heart rate, digestion, respiration and blood pressure."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "'मास्टर ग्रंथि' (master gland) के नाम से कौन सी ग्रंथि जानी जाती है, जो अन्य अंतःस्रावी ग्रंथियों (endocrine glands) को नियंत्रित करती है?",
+                "options": ["पीयूष ग्रंथि (Pituitary Gland)", "थायरॉयड ग्रंथि (Thyroid Gland)", "अधिवृक्क ग्रंथि (Adrenal Gland)", "अग्नाशय (Pancreas)"],
+                "correctAnswer": 0,
+                "explanation": "पीयूष ग्रंथि को 'मास्टर ग्रंथि' कहा जाता है क्योंकि यह कई अन्य अंतःस्रावी ग्रंथियों के कार्यों को नियंत्रित करती है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which gland is known as the 'master gland' that controls other endocrine glands?",
+                    "options": ["Pituitary Gland", "Thyroid Gland", "Adrenal Gland", "Pancreas"],
+                    "explanation": "The pituitary gland is called the 'master gland' because it controls the functions of many other endocrine glands."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "इंसुलिन हार्मोन किस ग्रंथि द्वारा स्रावित (secreted) होता है?",
+                "options": ["अग्नाशय (Pancreas)", "थायरॉयड ग्रंथि (Thyroid Gland)", "अधिवृक्क ग्रंथि (Adrenal Gland)", "पीयूष ग्रंथि (Pituitary Gland)"],
+                "correctAnswer": 0,
+                "explanation": "अग्नाशय इंसुलिन हार्मोन का उत्पादन और स्रावण करता है, जो रक्त में शर्करा (sugar) के स्तर को नियंत्रित करता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which gland secretes the hormone insulin?",
+                    "options": ["Pancreas", "Thyroid Gland", "Adrenal Gland", "Pituitary Gland"],
+                    "explanation": "The pancreas produces and secretes the hormone insulin, which regulates blood sugar levels."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "कौन सा हार्मोन शरीर के चयापचय (metabolism) को नियंत्रित करता है?",
+                "options": ["थायरोक्सिन (Thyroxine)", "इंसुलिन (Insulin)", "एड्रेनालिन (Adrenaline)", "एस्ट्रोजन (Estrogen)"],
+                "correctAnswer": 0,
+                "explanation": "थायरोक्सिन, थायरॉयड ग्रंथि द्वारा स्रावित, शरीर की चयापचय दर को नियंत्रित करने में महत्वपूर्ण भूमिका निभाता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which hormone controls the body's metabolism?",
+                    "options": ["Thyroxine", "Insulin", "Adrenaline", "Estrogen"],
+                    "explanation": "Thyroxine, secreted by the thyroid gland, plays an important role in regulating the body's metabolic rate."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "'फाइट या फ्लाइट' (Fight or Flight) प्रतिक्रिया के लिए कौन सा हार्मोन जिम्मेदार है?",
+                "options": ["एड्रेनालिन (Adrenaline)", "थायरोक्सिन (Thyroxine)", "इंसुलिन (Insulin)", "ग्लूकागन (Glucagon)"],
+                "correctAnswer": 0,
+                "explanation": "एड्रेनालिन (जिसे एपिनेफ्रीन भी कहा जाता है) अधिवृक्क ग्रंथियों द्वारा स्रावित होता है और तनाव या खतरे की स्थितियों में शरीर को 'फाइट या फ्लाइट' प्रतिक्रिया के लिए तैयार करता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which hormone is responsible for the 'Fight or Flight' response?",
+                    "options": ["Adrenaline", "Thyroxine", "Insulin", "Glucagon"],
+                    "explanation": "Adrenaline (also called epinephrine) is secreted by the adrenal glands and prepares the body for the 'fight or flight' response in stressful or dangerous situations."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मानव शरीर में वृद्धि हार्मोन (Growth Hormone - GH) का स्रावण कौन सी ग्रंथि करती है?",
+                "options": ["पीयूष ग्रंथि (Pituitary Gland)", "थायरॉयड ग्रंथि (Thyroid Gland)", "पिनियल ग्रंथि (Pineal Gland)", "थाइमस ग्रंथि (Thymus Gland)"],
+                "correctAnswer": 0,
+                "explanation": "पीयूष ग्रंथि वृद्धि हार्मोन का उत्पादन और स्रावण करती है, जो शरीर की वृद्धि और विकास के लिए आवश्यक है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which gland secretes growth hormone (GH) in the human body?",
+                    "options": ["Pituitary Gland", "Thyroid Gland", "Pineal Gland", "Thymus Gland"],
+                    "explanation": "The pituitary gland produces and secretes growth hormone, which is essential for the body's growth and development."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "पित्त (Bile) शरीर के किस अंग में उत्पन्न होता है?",
+                "options": ["यकृत (Liver)", "पित्ताशय (Gallbladder)", "अग्नाशय (Pancreas)", "आमाशय (Stomach)"],
+                "correctAnswer": 0,
+                "explanation": "पित्त का उत्पादन यकृत में होता है, हालाँकि इसे पित्ताशय (gallbladder) में संग्रहीत किया जाता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "In which organ is bile produced in the body?",
+                    "options": ["Liver", "Gallbladder", "Pancreas", "Stomach"],
+                    "explanation": "Bile is produced in the liver, although it is stored in the gallbladder."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मानव शरीर में सबसे छोटी हड्डी कौन सी है?",
+                "options": ["स्टेपीज़ (Stapes)", "इन्कस (Incus)", "मेलियस (Malleus)", "पटेला (Patella)"],
+                "correctAnswer": 0,
+                "explanation": "स्टेपीज़, मध्य कान में स्थित, मानव शरीर की सबसे छोटी हड्डी है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which is the smallest bone in the human body?",
+                    "options": ["Stapes", "Incus", "Malleus", "Patella"],
+                    "explanation": "The stapes, located in the middle ear, is the smallest bone in the human body."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मूत्रवाहिनी (Ureters) का कार्य क्या है?",
+                "options": ["मूत्र को गुर्दे से मूत्राशय तक ले जाना", "मूत्र को मूत्राशय में संग्रहीत करना", "रक्त को शुद्ध करना", "मूत्र का उत्पादन करना"],
+                "correctAnswer": 0,
+                "explanation": "मूत्रवाहिनी वे नलिकाएं हैं जो गुर्दे से मूत्र को मूत्राशय तक ले जाती हैं।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "What is the function of the ureters?",
+                    "options": ["Carry urine from kidneys to bladder", "Store urine in the bladder", "Purify blood", "Produce urine"],
+                    "explanation": "The ureters are tubes that carry urine from the kidneys to the bladder."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मानव शरीर में सबसे लंबी तंत्रिका (nerve) कौन सी है?",
+                "options": ["सायटिक तंत्रिका (Sciatic Nerve)", "ऑप्टिक तंत्रिका (Optic Nerve)", "वेगस तंत्रिका (Vagus Nerve)", "फेमोरल तंत्रिका (Femoral Nerve)"],
+                "correctAnswer": 0,
+                "explanation": "सायटिक तंत्रिका मानव शरीर की सबसे लंबी और सबसे चौड़ी एकल तंत्रिका है, जो निचले हिस्से से पैर तक फैली होती है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which is the longest nerve in the human body?",
+                    "options": ["Sciatic Nerve", "Optic Nerve", "Vagus Nerve", "Femoral Nerve"],
+                    "explanation": "The sciatic nerve is the longest and widest single nerve in the human body, extending from the lower back to the foot."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मानव शरीर में कैल्शियम और फॉस्फेट के स्तर को कौन सा हार्मोन नियंत्रित करता है?",
+                "options": ["पैराथायरायड हार्मोन (Parathyroid Hormone - PTH)", "थायरोक्सिन (Thyroxine)", "कैल्सीटोनिन (Calcitonin)", "कोर्टिसोल (Cortisol)"],
+                "correctAnswer": 0,
+                "explanation": "पैराथायरायड हार्मोन पैराथायरायड ग्रंथियों द्वारा स्रावित होता है और रक्त में कैल्शियम और फॉस्फेट के स्तर को नियंत्रित करता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which hormone regulates calcium and phosphate levels in the human body?",
+                    "options": ["Parathyroid Hormone (PTH)", "Thyroxine", "Calcitonin", "Cortisol"],
+                    "explanation": "Parathyroid hormone is secreted by the parathyroid glands and regulates calcium and phosphate levels in the blood."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "पेट में कौन सा अम्ल (acid) भोजन के पाचन में मदद करता है?",
+                "options": ["हाइड्रोक्लोरिक अम्ल (Hydrochloric Acid - HCl)", "सल्फ्यूरिक अम्ल (Sulfuric Acid)", "नाइट्रिक अम्ल (Nitric Acid)", "एसिटिक अम्ल (Acetic Acid)"],
+                "correctAnswer": 0,
+                "explanation": "हाइड्रोक्लोरिक अम्ल पेट में स्रावित होता है, जो भोजन को तोड़ने और हानिकारक बैक्टीरिया को मारने में मदद करता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which acid in the stomach helps in digestion of food?",
+                    "options": ["Hydrochloric Acid (HCl)", "Sulfuric Acid", "Nitric Acid", "Acetic Acid"],
+                    "explanation": "Hydrochloric acid is secreted in the stomach and helps break down food and kill harmful bacteria."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "कौन सी हड्डी शरीर के वजन को सहारा देने वाली मुख्य हड्डी है?",
+                "options": ["टिबिया (Tibia)", "फाइबुला (Fibula)", "फीमर (Femur)", "पटेला (Patella)"],
+                "correctAnswer": 0,
+                "explanation": "टिबिया, जिसे शिनबोन भी कहते हैं, पैर की मुख्य वजन-सहारा देने वाली हड्डी है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which bone is the main weight-bearing bone of the body?",
+                    "options": ["Tibia", "Fibula", "Femur", "Patella"],
+                    "explanation": "The tibia, also called the shinbone, is the main weight-bearing bone of the leg."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "नेफ्रॉन का कौन सा भाग मूत्र में पानी के अवशोषण में महत्वपूर्ण भूमिका निभाता है?",
+                "options": ["हेनले का लूप (Loop of Henle)", "बोमन कैप्सूल (Bowman's Capsule)", "ग्लोमेरुलस (Glomerulus)", "डिस्टल कोनवोल्यूटेड ट्यूब्यूल (Distal Convoluted Tubule)"],
+                "correctAnswer": 0,
+                "explanation": "हेनले का लूप नेफ्रॉन का वह हिस्सा है जो मूत्र को केंद्रित करने और पानी के अवशोषण में महत्वपूर्ण भूमिका निभाता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which part of the nephron plays an important role in water absorption in urine?",
+                    "options": ["Loop of Henle", "Bowman's Capsule", "Glomerulus", "Distal Convoluted Tubule"],
+                    "explanation": "The loop of Henle is the part of the nephron that plays an important role in concentrating urine and absorbing water."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "केंद्रीय तंत्रिका तंत्र (Central Nervous System - CNS) में क्या शामिल है?",
+                "options": ["मस्तिष्क और रीढ़ की हड्डी (Brain and Spinal Cord)", "तंत्रिकाएं और संवेदी अंग (Nerves and Sensory Organs)", "ग्रंथियां और हार्मोन (Glands and Hormones)", "मांसपेशियां और हड्डियाँ (Muscles and Bones)"],
+                "correctAnswer": 0,
+                "explanation": "केंद्रीय तंत्रिका तंत्र में मस्तिष्क और रीढ़ की हड्डी शामिल है, जो शरीर के कार्यों को नियंत्रित और समन्वयित करते हैं।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "What does the Central Nervous System (CNS) include?",
+                    "options": ["Brain and Spinal Cord", "Nerves and Sensory Organs", "Glands and Hormones", "Muscles and Bones"],
+                    "explanation": "The central nervous system includes the brain and spinal cord, which control and coordinate the body's functions."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "कौन सी ग्रंथि मेलाटोनिन (Melatonin) हार्मोन स्रावित करती है, जो नींद-जागने के चक्र को नियंत्रित करता है?",
+                "options": ["पिनियल ग्रंथि (Pineal Gland)", "पीयूष ग्रंथि (Pituitary Gland)", "थायरॉयड ग्रंथि (Thyroid Gland)", "हाइपोथैलेमस (Hypothalamus)"],
+                "correctAnswer": 0,
+                "explanation": "पिनियल ग्रंथि मेलाटोनिन का उत्पादन करती है, जो शरीर की सर्कैडियन लय (circadian rhythm) और नींद-जागने के चक्र को नियंत्रित करती है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which gland secretes the hormone melatonin that regulates the sleep-wake cycle?",
+                    "options": ["Pineal Gland", "Pituitary Gland", "Thyroid Gland", "Hypothalamus"],
+                    "explanation": "The pineal gland produces melatonin, which regulates the body's circadian rhythm and sleep-wake cycle."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "पेट में प्रोटीन का आंशिक पाचन किस एंजाइम द्वारा होता है?",
+                "options": ["पेप्सिन (Pepsin)", "ट्रिप्सिन (Trypsin)", "अमायलेस (Amylase)", "रेनिन (Renin)"],
+                "correctAnswer": 0,
+                "explanation": "पेप्सिन पेट में प्रोटीन को छोटे पेप्टाइड्स में तोड़ना शुरू करता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which enzyme partially digests proteins in the stomach?",
+                    "options": ["Pepsin", "Trypsin", "Amylase", "Renin"],
+                    "explanation": "Pepsin begins breaking down proteins into smaller peptides in the stomach."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मानव खोपड़ी (skull) में कितनी हड्डियाँ होती हैं?",
+                "options": ["22", "29", "8", "14"],
+                "correctAnswer": 0,
+                "explanation": "मानव खोपड़ी में आमतौर पर 22 हड्डियाँ होती हैं, जिनमें से 8 कपाल (cranium) में और 14 चेहरे में होती हैं।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "How many bones are there in the human skull?",
+                    "options": ["22", "29", "8", "14"],
+                    "explanation": "The human skull typically has 22 bones, with 8 in the cranium and 14 in the face."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "गुर्दे में बनने वाली पथरी (kidney stone) का मुख्य रासायनिक घटक क्या है?",
+                "options": ["कैल्शियम ऑक्सलेट (Calcium Oxalate)", "यूरिक एसिड (Uric Acid)", "मैग्नीशियम फॉस्फेट (Magnesium Phosphate)", "कोलेस्ट्रॉल (Cholesterol)"],
+                "correctAnswer": 0,
+                "explanation": "गुर्दे की पथरी का सबसे आम प्रकार कैल्शियम ऑक्सलेट से बना होता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "What is the main chemical component of kidney stones?",
+                    "options": ["Calcium Oxalate", "Uric Acid", "Magnesium Phosphate", "Cholesterol"],
+                    "explanation": "The most common type of kidney stone is made of calcium oxalate."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मानव शरीर में प्रतिवर्ती क्रिया (Reflex Action) का नियंत्रण केंद्र कहाँ होता है?",
+                "options": ["रीढ़ की हड्डी (Spinal Cord)", "मस्तिष्क (Brain)", "सेरेबेलम (Cerebellum)", "थैलेमस (Thalamus)"],
+                "correctAnswer": 0,
+                "explanation": "प्रतिवर्ती क्रियाओं का नियंत्रण रीढ़ की हड्डी में होता है, जो मस्तिष्क से स्वतंत्र रूप से त्वरित प्रतिक्रिया देने में सक्षम होती हैं।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Where is the control center for reflex actions in the human body?",
+                    "options": ["Spinal Cord", "Brain", "Cerebellum", "Thalamus"],
+                    "explanation": "Reflex actions are controlled in the spinal cord, which can provide quick responses independently of the brain."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "कौन सी ग्रंथि रक्त में शर्करा (sugar) के स्तर को विनियमित करने वाले हार्मोन (इंसुलिन और ग्लूकागन) का उत्पादन करती है?",
+                "options": ["अग्नाशय (Pancreas)", "यकृत (Liver)", "अधिवृक्क ग्रंथि (Adrenal Gland)", "थायरॉयड ग्रंथि (Thyroid Gland)"],
+                "correctAnswer": 0,
+                "explanation": "अग्नाशय लैंगरहैंस के आइलेट्स (Islets of Langerhans) में इंसुलिन और ग्लूकागन का उत्पादन करता है, जो रक्त शर्करा के स्तर को संतुलित करते हैं।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which gland produces hormones (insulin and glucagon) that regulate blood sugar levels?",
+                    "options": ["Pancreas", "Liver", "Adrenal Gland", "Thyroid Gland"],
+                    "explanation": "The pancreas produces insulin and glucagon in the Islets of Langerhans, which balance blood sugar levels."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "कौन सा पाचक एंजाइम कार्बोहाइड्रेट (Carbohydrates) के पाचन की शुरुआत करता है?",
+                "options": ["अमायलेस (Amylase)", "पेप्सिन (Pepsin)", "लाइपेस (Lipase)", "रेनिन (Renin)"],
+                "correctAnswer": 0,
+                "explanation": "अमायलेस मुख में और अग्नाशय द्वारा स्रावित होता है, जो कार्बोहाइड्रेट को तोड़ना शुरू करता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which digestive enzyme initiates the digestion of carbohydrates?",
+                    "options": ["Amylase", "Pepsin", "Lipase", "Renin"],
+                    "explanation": "Amylase is secreted in the mouth and by the pancreas, which begins breaking down carbohydrates."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मानव शरीर में सबसे मजबूत हड्डी कौन सी है?",
+                "options": ["फीमर (Femur)", "टिबिया (Tibia)", "जबड़े की हड्डी (Mandible)", "कपाल (Cranium)"],
+                "correctAnswer": 0,
+                "explanation": "फीमर, जांघ की हड्डी, मानव शरीर की सबसे लंबी और सबसे मजबूत हड्डी है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which is the strongest bone in the human body?",
+                    "options": ["Femur", "Tibia", "Mandible", "Cranium"],
+                    "explanation": "The femur, or thigh bone, is the longest and strongest bone in the human body."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "वृक्क (Kidneys) कहाँ स्थित होते हैं?",
+                "options": ["पेट के पिछले हिस्से में, रीढ़ की हड्डी के दोनों ओर", "पेट के सामने, नाभि के पास", "छाती के ऊपरी भाग में", "गर्दन में"],
+                "correctAnswer": 0,
+                "explanation": "वृक्क रीढ़ की हड्डी के दोनों ओर, पेट के पिछले हिस्से में, पसलियों के ठीक नीचे स्थित होते हैं।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Where are the kidneys located?",
+                    "options": ["In the back of the abdomen, on either side of the spine", "In the front of the abdomen, near the navel", "In the upper part of the chest", "In the neck"],
+                    "explanation": "The kidneys are located in the back of the abdomen, on either side of the spine, just below the ribs."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "मानव शरीर में सूचनाओं का संचार (communication) मुख्य रूप से किसके द्वारा होता है?",
+                "options": ["तंत्रिका तंत्र (Nervous System)", "रक्त संचार प्रणाली (Circulatory System)", "अंतःस्रावी तंत्र (Endocrine System)", "कंकाल तंत्र (Skeletal System)"],
+                "correctAnswer": 0,
+                "explanation": "तंत्रिका तंत्र विद्युत और रासायनिक संकेतों के माध्यम से शरीर के विभिन्न हिस्सों के बीच तेजी से सूचनाओं का संचार करता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "How is communication primarily carried out in the human body?",
+                    "options": ["Nervous System", "Circulatory System", "Endocrine System", "Skeletal System"],
+                    "explanation": "The nervous system rapidly communicates information between different parts of the body through electrical and chemical signals."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "कौन सी ग्रंथि 'पीनियल ग्रंथि' (Pineal Gland) के नाम से भी जानी जाती है?",
+                "options": ["तीसरी आँख (Third Eye)", "मास्टर ग्रंथि (Master Gland)", "एड्रेनल ग्रंथि (Adrenal Gland)", "गोनाडल ग्रंथि (Gonadal Gland)"],
+                "correctAnswer": 0,
+                "explanation": "पीनियल ग्रंथि को कभी-कभी 'तीसरी आँख' भी कहा जाता है क्योंकि यह प्रकाश के प्रति संवेदनशील होती है और नींद-जागने के चक्र को प्रभावित करती है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which gland is also known as the 'Pineal Gland'?",
+                    "options": ["Third Eye", "Master Gland", "Adrenal Gland", "Gonadal Gland"],
+                    "explanation": "The pineal gland is sometimes called the 'third eye' because it is sensitive to light and affects the sleep-wake cycle."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "दूध में मौजूद प्रोटीन को पचाने वाला एंजाइम कौन सा है?",
+                "options": ["रेनिन (Renin)", "पेप्सिन (Pepsin)", "ट्रिप्सिन (Trypsin)", "लाइपेस (Lipase)"],
+                "correctAnswer": 0,
+                "explanation": "रेनिन विशेष रूप से बच्चों के पेट में दूध में मौजूद कैसिइन (casein) प्रोटीन को पचाने में मदद करता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which enzyme digests the protein found in milk?",
+                    "options": ["Renin", "Pepsin", "Trypsin", "Lipase"],
+                    "explanation": "Renin specifically helps digest the casein protein found in milk, especially in children's stomachs."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "रीढ़ की हड्डी (Spinal Cord) में कितनी कशेरुकाएँ (vertebrae) होती हैं?",
+                "options": ["33", "24", "26", "7"],
+                "correctAnswer": 0,
+                "explanation": "मानव रीढ़ की हड्डी में आमतौर पर 33 कशेरुकाएँ होती हैं, जिनमें से कुछ (जैसे त्रिक और अनुत्रिक) वयस्कों में जुड़ जाती हैं।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "How many vertebrae are there in the spinal cord?",
+                    "options": ["33", "24", "26", "7"],
+                    "explanation": "The human spinal cord typically has 33 vertebrae, some of which (like the sacral and coccygeal) fuse together in adults."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "कौन सा उत्सर्जक अंग (excretory organ) 'मूत्राशय' (Urinary Bladder) नहीं है?",
+                "options": ["गुर्दे (Kidneys)", "मूत्रवाहिनी (Ureters)", "मूत्रमार्ग (Urethra)", "मूत्राशय (Urinary Bladder)"],
+                "correctAnswer": 0,
+                "explanation": "गुर्दे रक्त को फिल्टर करके मूत्र का उत्पादन करते हैं, मूत्राशय मूत्र को संग्रहीत करता है।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which is not an excretory organ called the 'Urinary Bladder'?",
+                    "options": ["Kidneys", "Ureters", "Urethra", "Urinary Bladder"],
+                    "explanation": "The kidneys filter blood to produce urine, while the urinary bladder stores urine."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "संवेदी तंत्रिकाएं (Sensory Nerves) क्या कार्य करती हैं?",
+                "options": ["संवेदी अंगों से मस्तिष्क तक सूचना ले जाना", "मस्तिष्क से मांसपेशियों तक संकेत ले जाना", "हार्मोन स्रावित करना", "रक्त को शुद्ध करना"],
+                "correctAnswer": 0,
+                "explanation": "संवेदी तंत्रिकाएं त्वचा, आंख, कान आदि जैसे संवेदी अंगों से जानकारी को मस्तिष्क और रीढ़ की हड्डी तक ले जाती हैं।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "What is the function of sensory nerves?",
+                    "options": ["Carry information from sensory organs to the brain", "Carry signals from the brain to muscles", "Secrete hormones", "Purify blood"],
+                    "explanation": "Sensory nerves carry information from sensory organs like skin, eyes, ears to the brain and spinal cord."
+                }
+            },
+            {
+                "section": "General Science",
+                "question": "अधिवृक्क ग्रंथि (Adrenal Gland) द्वारा कौन सा हार्मोन स्रावित नहीं होता है?",
+                "options": ["इंसुलिन (Insulin)", "एड्रेनालिन (Adrenaline)", "कोर्टिसोल (Cortisol)", "एल्डोस्टेरोन (Aldosterone)"],
+                "correctAnswer": 0,
+                "explanation": "इंसुलिन अग्नाशय (pancreas) द्वारा स्रावित होता है, न कि अधिवृक्क ग्रंथि द्वारा।",
+                "difficulty": "Easy",
+                "language": ["hi"],
+                "en": {
+                    "question": "Which hormone is not secreted by the adrenal gland?",
+                    "options": ["Insulin", "Adrenaline", "Cortisol", "Aldosterone"],
+                    "explanation": "Insulin is secreted by the pancreas, not the adrenal gland."
+                }
+            }
+        ];
+
+        // Application State
+        const state = {
+            currentQuestionIndex: 0,
+            answers: [],
+            markedForReview: [],
+            testStarted: false,
+            testSubmitted: false,
+            timeRemaining: 1800, // 30 minutes in seconds
+            timerInterval: null,
+            isPaused: false,
+            language: 'en',
+            darkMode: false,
+            user: {
+                name: '',
+                email: '',
+                testType: 'full'
+            }
+        };
+
+        // DOM Elements
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const testContainer = document.getElementById('testContainer');
+        const resultScreen = document.getElementById('resultScreen');
+        const reviewScreen = document.getElementById('reviewScreen');
+        
+        const studentNameInput = document.getElementById('studentName');
+        const studentEmailInput = document.getElementById('studentEmail');
+        const testTypeSelect = document.getElementById('testType');
+        const languagePreferenceSelect = document.getElementById('languagePreference');
+        
+        const startTestBtn = document.getElementById('startTestBtn');
+        const testTimer = document.getElementById('testTimer');
+        const timerControlBtn = document.getElementById('timerControlBtn');
+        const questionText = document.getElementById('questionText');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const prevQuestionBtn = document.getElementById('prevQuestionBtn');
+        const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+        const submitTestBtn = document.getElementById('submitTestBtn');
+        const questionPalette = document.getElementById('questionPalette');
+        const markForReviewBtn = document.getElementById('markForReviewBtn');
+        const sectionTabs = document.getElementById('sectionTabs');
+        
+        const resultUserName = document.getElementById('resultUserName');
+        const totalScore = document.getElementById('totalScore');
+        const resultMessage = document.getElementById('resultMessage');
+        const correctAnswers = document.getElementById('correctAnswers');
+        const wrongAnswers = document.getElementById('wrongAnswers');
+        const unattempted = document.getElementById('unattempted');
+        const sectionAnalysis = document.getElementById('sectionAnalysis');
+        const reviewTestBtn = document.getElementById('reviewTestBtn');
+        const homeBtn = document.getElementById('homeBtn');
+        const backToResultsBtn = document.getElementById('backToResultsBtn');
+        const reviewQuestionsContainer = document.getElementById('reviewQuestionsContainer');
+        
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const languageToggle = document.getElementById('languageToggle');
+        
+        // Event Listeners
+        startTestBtn.addEventListener('click', startTest);
+        timerControlBtn.addEventListener('click', toggleTimer);
+        prevQuestionBtn.addEventListener('click', showPreviousQuestion);
+        nextQuestionBtn.addEventListener('click', showNextQuestion);
+        submitTestBtn.addEventListener('click', confirmSubmitTest);
+        markForReviewBtn.addEventListener('click', toggleMarkForReview);
+        reviewTestBtn.addEventListener('click', showReviewScreen);
+        homeBtn.addEventListener('click', goToHome);
+        backToResultsBtn.addEventListener('click', showResultScreen);
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
+        darkModeToggle.addEventListener('click', toggleDarkMode);
+        languageToggle.addEventListener('click', toggleLanguage);
+        
+        // Initialize the app
+        function init() {
+            updateTimerDisplay();
+            loadLeaderboard();
+        }
+        
+        // Start the test
+        function startTest() {
+            const name = studentNameInput.value.trim();
+            if (!name) {
+                alert('Please enter your name to start the test');
+                return;
+            }
+            
+            state.user.name = name;
+            state.user.email = studentEmailInput.value.trim();
+            state.user.testType = testTypeSelect.value;
+            state.language = languagePreferenceSelect.value;
+            
+            // Initialize answers array
+            state.answers = Array(questions.length).fill(null);
+            state.markedForReview = Array(questions.length).fill(false);
+            
+            // Show test interface
+            welcomeScreen.style.display = 'none';
+            testContainer.style.display = 'block';
+            state.testStarted = true;
+            
+            // Start timer
+            startTimer();
+            
+            // Load first question
+            loadQuestion(state.currentQuestionIndex);
+            createQuestionPalette();
+            createSectionTabs();
+            
+            // Update language toggle button
+            updateLanguageToggle();
+        }
+        
+        // Load a question
+        function loadQuestion(index) {
+            if (index < 0 || index >= questions.length) return;
+            
+            state.currentQuestionIndex = index;
+            const question = questions[index];
+            
+            // Update question text based on language preference
+            if (state.language === 'hi' || (state.language === 'bilingual' && question.language && question.language.includes('hi'))) {
+                questionText.textContent = question.question;
+            } else {
+                questionText.textContent = question.en.question || question.question;
+            }
+            
+            // Clear options
+            optionsContainer.innerHTML = '';
+            
+            // Get options based on language preference
+            let options;
+            if (state.language === 'hi' || (state.language === 'bilingual' && question.language && question.language.includes('hi'))) {
+                options = question.options;
+            } else {
+                options = question.en.options || question.options;
+            }
+            
+            // Create option elements
+            options.forEach((option, i) => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('option');
+                optionElement.textContent = option;
+                
+                // Mark selected option if answered
+                if (state.answers[index] === i) {
+                    optionElement.classList.add('selected');
+                }
+                
+                optionElement.addEventListener('click', () => selectOption(i));
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Update navigation buttons
+            prevQuestionBtn.disabled = index === 0;
+            nextQuestionBtn.disabled = index === questions.length - 1;
+            submitTestBtn.classList.toggle('hidden', index !== questions.length - 1);
+            
+            // Update question palette
+            updateQuestionPalette();
+            
+            // Update mark for review button
+            markForReviewBtn.textContent = state.markedForReview[index] ? 
+                'Unmark for Review' : 'Mark for Review';
+        }
+        
+        // Select an option
+        function selectOption(optionIndex) {
+            const currentIndex = state.currentQuestionIndex;
+            state.answers[currentIndex] = optionIndex;
+            
+            // Update UI
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, i) => {
+                option.classList.toggle('selected', i === optionIndex);
+            });
+            
+            // Update question palette
+            updateQuestionPalette();
+        }
+        
+        // Toggle mark for review
+        function toggleMarkForReview() {
+            const currentIndex = state.currentQuestionIndex;
+            state.markedForReview[currentIndex] = !state.markedForReview[currentIndex];
+            
+            // Update button text
+            markForReviewBtn.textContent = state.markedForReview[currentIndex] ? 
+                'Unmark for Review' : 'Mark for Review';
+                
+            // Update question palette
+            updateQuestionPalette();
+        }
+        
+        // Show previous question
+        function showPreviousQuestion() {
+            if (state.currentQuestionIndex > 0) {
+                loadQuestion(state.currentQuestionIndex - 1);
+            }
+        }
+        
+        // Show next question
+        function showNextQuestion() {
+            if (state.currentQuestionIndex < questions.length - 1) {
+                loadQuestion(state.currentQuestionIndex + 1);
+            }
+        }
+        
+        // Create question palette
+        function createQuestionPalette() {
+            questionPalette.innerHTML = '';
+            
+            questions.forEach((_, i) => {
+                const paletteItem = document.createElement('div');
+                paletteItem.classList.add('palette-item');
+                paletteItem.textContent = i + 1;
+                
+                if (i === state.currentQuestionIndex) {
+                    paletteItem.classList.add('current');
+                }
+                
+                paletteItem.addEventListener('click', () => loadQuestion(i));
+                questionPalette.appendChild(paletteItem);
+            });
+            
+            updateQuestionPalette();
+        }
+        
+        // Update question palette
+        function updateQuestionPalette() {
+            const paletteItems = document.querySelectorAll('.palette-item');
+            
+            paletteItems.forEach((item, i) => {
+                // Remove all classes
+                item.classList.remove('current', 'attempted', 'marked');
+                
+                // Add appropriate classes
+                if (i === state.currentQuestionIndex) {
+                    item.classList.add('current');
+                }
+                
+                if (state.answers[i] !== null) {
+                    item.classList.add('attempted');
+                }
+                
+                if (state.markedForReview[i]) {
+                    item.classList.add('marked');
+                }
+            });
+        }
+        
+        // Create section tabs
+        function createSectionTabs() {
+            sectionTabs.innerHTML = '';
+            
+            // Get unique sections
+            const sections = [...new Set(questions.map(q => q.section))];
+            
+            sections.forEach((section, i) => {
+                const tab = document.createElement('div');
+                tab.classList.add('section-tab');
+                if (i === 0) tab.classList.add('active');
+                tab.textContent = section;
+                
+                tab.addEventListener('click', () => {
+                    // Find first question in this section
+                    const firstQuestionIndex = questions.findIndex(q => q.section === section);
+                    if (firstQuestionIndex !== -1) {
+                        loadQuestion(firstQuestionIndex);
+                    }
+                    
+                    // Update active tab
+                    document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+                
+                sectionTabs.appendChild(tab);
+            });
+        }
+        
+        // Start timer
+        function startTimer() {
+            if (state.timerInterval) clearInterval(state.timerInterval);
+            
+            state.timerInterval = setInterval(() => {
+                if (!state.isPaused) {
+                    state.timeRemaining--;
+                    updateTimerDisplay();
+                    
+                    if (state.timeRemaining <= 0) {
+                        clearInterval(state.timerInterval);
+                        submitTest();
+                    }
+                }
+            }, 1000);
+        }
+        
+        // Update timer display
+        function updateTimerDisplay() {
+            const hours = Math.floor(state.timeRemaining / 3600);
+            const minutes = Math.floor((state.timeRemaining % 3600) / 60);
+            const seconds = state.timeRemaining % 60;
+            
+            testTimer.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Change color based on remaining time
+            testTimer.classList.remove('timer-warning', 'timer-danger');
+            
+            if (state.timeRemaining <= 300) { // 5 minutes or less
+                testTimer.classList.add('timer-danger');
+            } else if (state.timeRemaining <= 900) { // 15 minutes or less
+                testTimer.classList.add('timer-warning');
+            }
+        }
+        
+        // Toggle timer pause/play
+        function toggleTimer() {
+            state.isPaused = !state.isPaused;
+            timerControlBtn.textContent = state.isPaused ? 'Resume' : 'Pause';
+        }
+        
+        // Confirm test submission
+        function confirmSubmitTest() {
+            if (confirm('Are you sure you want to submit the test?')) {
+                submitTest();
+            }
+        }
+        
+        // Submit test
+        function submitTest() {
+            clearInterval(state.timerInterval);
+            state.testSubmitted = true;
+            
+            // Calculate results
+            const results = calculateResults();
+            
+            // Show result screen
+            showResultScreen(results);
+        }
+        
+        // Calculate test results with negative marking (1/3)
+        function calculateResults() {
+            let correct = 0;
+            let wrong = 0;
+            let unattemptedCount = 0;
+            let score = 0;
+            
+            const sectionStats = {};
+            
+            questions.forEach((question, i) => {
+                // Initialize section stats if not exists
+                if (!sectionStats[question.section]) {
+                    sectionStats[question.section] = {
+                        total: 0,
+                        correct: 0,
+                        wrong: 0,
+                        unattempted: 0,
+                        score: 0
+                    };
+                }
+                
+                sectionStats[question.section].total++;
+                
+                if (state.answers[i] === null) {
+                    unattemptedCount++;
+                    sectionStats[question.section].unattempted++;
+                } else if (state.answers[i] === question.correctAnswer) {
+                    correct++;
+                    score += 1;
+                    sectionStats[question.section].correct++;
+                    sectionStats[question.section].score += 1;
+                } else {
+                    wrong++;
+                    score -= 1/3; // Negative marking (1/3)
+                    sectionStats[question.section].wrong++;
+                    sectionStats[question.section].score -= 1/3;
+                }
+            });
+            
+            // Ensure score doesn't go below 0
+            score = Math.max(0, score);
+            
+            return {
+                correct,
+                wrong,
+                unattempted: unattemptedCount,
+                total: questions.length,
+                score: Math.round(score * 100) / 100, // Round to 2 decimal places
+                sectionStats
+            };
+        }
+        
+        // Show result screen
+        function showResultScreen(results) {
+            testContainer.style.display = 'none';
+            resultScreen.style.display = 'block';
+            reviewScreen.style.display = 'none';
+            
+            // Update result display
+            resultUserName.textContent = `Congratulations, ${state.user.name}!`;
+            totalScore.textContent = `${results.score}/${results.total}`;
+            
+            // Set result message based on performance
+            const percentage = (results.score / results.total) * 100;
+            if (percentage >= 80) {
+                resultMessage.textContent = 'Excellent performance! You have a strong grasp of the subject.';
+            } else if (percentage >= 60) {
+                resultMessage.textContent = 'Good job! You have a decent understanding but can improve further.';
+            } else if (percentage >= 40) {
+                resultMessage.textContent = 'You passed, but there is significant room for improvement. Keep practicing!';
+            } else {
+                resultMessage.textContent = 'You need more preparation. Review the concepts and try again.';
+            }
+            
+            // Update score details
+            correctAnswers.textContent = results.correct;
+            wrongAnswers.textContent = results.wrong;
+            unattempted.textContent = results.unattempted;
+            
+            // Update section analysis
+            sectionAnalysis.innerHTML = '';
+            for (const section in results.sectionStats) {
+                const stats = results.sectionStats[section];
+                const percentage = (stats.score / stats.total) * 100;
+                
+                const sectionItem = document.createElement('div');
+                sectionItem.classList.add('section-item');
+                
+                sectionItem.innerHTML = `
+                    <div class="section-header">
+                        <div class="section-name">${section}</div>
+                        <div class="section-score">${Math.round(stats.score * 100) / 100}/${stats.total}</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${percentage}%"></div>
+                    </div>
+                `;
+                
+                sectionAnalysis.appendChild(sectionItem);
+            }
+            
+            // Save to leaderboard
+            saveToLeaderboard(results.score);
+        }
+        
+        // Show review screen
+        function showReviewScreen() {
+            resultScreen.style.display = 'none';
+            reviewScreen.style.display = 'block';
+            
+            reviewQuestionsContainer.innerHTML = '';
+            
+            questions.forEach((question, i) => {
+                const isCorrect = state.answers[i] === question.correctAnswer;
+                const isUnattempted = state.answers[i] === null;
+                
+                const reviewQuestion = document.createElement('div');
+                reviewQuestion.classList.add('review-question');
+                
+                if (isCorrect) {
+                    reviewQuestion.classList.add('correct');
+                } else if (isUnattempted) {
+                    reviewQuestion.classList.add('unattempted');
+                } else {
+                    reviewQuestion.classList.add('incorrect');
+                }
+                
+                // Get question text based on language preference
+                let qText;
+                if (state.language === 'hi' || (state.language === 'bilingual' && question.language && question.language.includes('hi'))) {
+                    qText = question.question;
+                } else {
+                    qText = question.en.question || question.question;
+                }
+                
+                // Get options based on language preference
+                let options;
+                if (state.language === 'hi' || (state.language === 'bilingual' && question.language && question.language.includes('hi'))) {
+                    options = question.options;
+                } else {
+                    options = question.en.options || question.options;
+                }
+                
+                // Get explanation based on language preference
+                let explanation;
+                if (state.language === 'hi' || (state.language === 'bilingual' && question.language && question.language.includes('hi'))) {
+                    explanation = question.explanation;
+                } else {
+                    explanation = question.en.explanation || question.explanation;
+                }
+                
+                // Create status label
+                let statusText, statusClass;
+                if (isCorrect) {
+                    statusText = 'Correct';
+                    statusClass = 'status-correct';
+                } else if (isUnattempted) {
+                    statusText = 'Unattempted';
+                    statusClass = 'status-unattempted';
+                } else {
+                    statusText = 'Incorrect';
+                    statusClass = 'status-incorrect';
+                }
+                
+                // Create question HTML
+                reviewQuestion.innerHTML = `
+                    <div class="review-question-header">
+                        <h3>Question ${i + 1}</h3>
+                        <div class="question-status ${statusClass}">${statusText}</div>
+                    </div>
+                    <div class="question-text">${qText}</div>
+                    <div class="options-container">
+                        ${options.map((option, j) => `
+                            <div class="option 
+                                ${j === question.correctAnswer ? 'correct' : ''}
+                                ${!isCorrect && !isUnattempted && j === state.answers[i] ? 'incorrect' : ''}">
+                                ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="explanation">
+                        <strong>Explanation:</strong> ${explanation}
+                    </div>
+                `;
+                
+                reviewQuestionsContainer.appendChild(reviewQuestion);
+            });
+        }
+        
+        // Go to home screen
+        function goToHome() {
+            // Reset state
+            state.currentQuestionIndex = 0;
+            state.answers = [];
+            state.markedForReview = [];
+            state.testStarted = false;
+            state.testSubmitted = false;
+            state.timeRemaining = 1800; // 30 minutes
+            state.isPaused = false;
+            
+            if (state.timerInterval) {
+                clearInterval(state.timerInterval);
+                state.timerInterval = null;
+            }
+            
+            // Reset UI
+            resultScreen.style.display = 'none';
+            reviewScreen.style.display = 'none';
+            welcomeScreen.style.display = 'block';
+            
+            // Reset form
+            studentNameInput.value = '';
+            studentEmailInput.value = '';
+            testTypeSelect.value = 'full';
+            languagePreferenceSelect.value = 'en';
+        }
+        
+        // Save to leaderboard
+        function saveToLeaderboard(score) {
+            const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+            const today = new Date().toLocaleDateString();
+            
+            leaderboard.push({
+                name: state.user.name,
+                score: score,
+                date: today
+            });
+            
+            // Sort by score (descending)
+            leaderboard.sort((a, b) => b.score - a.score);
+            
+            // Keep only top 10
+            if (leaderboard.length > 10) {
+                leaderboard.length = 10;
+            }
+            
+            localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+            loadLeaderboard();
+        }
+        
+        // Load leaderboard
+        function loadLeaderboard() {
+            const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+            const leaderboardTable = document.getElementById('leaderboardTable').querySelector('tbody');
+            
+            leaderboardTable.innerHTML = '';
+            
+            leaderboard.forEach((entry, index) => {
+                const row = document.createElement('tr');
+                
+                if (index === 0) row.classList.add('rank-1');
+                else if (index === 1) row.classList.add('rank-2');
+                else if (index === 2) row.classList.add('rank-3');
+                
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${entry.name}</td>
+                    <td>${entry.score}/${questions.length}</td>
+                    <td>${entry.date}</td>
+                `;
+                
+                leaderboardTable.appendChild(row);
+            });
+        }
+        
+        // Toggle fullscreen mode
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    alert(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+        
+        // Toggle dark mode
+        function toggleDarkMode() {
+            state.darkMode = !state.darkMode;
+            document.body.classList.toggle('dark-mode', state.darkMode);
+        }
+        
+        // Toggle language
+        function toggleLanguage() {
+            state.language = state.language === 'en' ? 'hi' : 'en';
+            updateLanguageToggle();
+            
+            if (state.testStarted && !state.testSubmitted) {
+                // Reload current question with new language
+                loadQuestion(state.currentQuestionIndex);
+            } else if (state.testSubmitted && reviewScreen.style.display === 'block') {
+                // Reload review screen with new language
+                showReviewScreen();
+            }
+        }
+        
+        // Update language toggle button
+        function updateLanguageToggle() {
+            languageToggle.textContent = state.language === 'en' ? 'HI' : 'EN';
+        }
+        
+        // Initialize the app
+        init();
+    </script>
+</body>
+</html>
